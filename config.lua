@@ -31,6 +31,8 @@ local config = {
     stickSlot = -2,
     -- to which slot should the robot stop storing items
     storageStopSlot = -3,
+    -- number of cycles to pass before inventory is cleaned up
+    inventoryCleanupCycleFreq = 5,
 
     -- flags
 
