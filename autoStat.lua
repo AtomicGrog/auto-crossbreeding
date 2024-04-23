@@ -10,6 +10,8 @@ local tasks = require("tasks")
 local args = {...}
 local nonstop = false
 local docleanup = true
+local cleanCount = 0
+
 if #args == 1 then
     if args[1] == "nocleanup" then
         docleanup = false
@@ -33,6 +35,14 @@ local function main()
     while not tasks.breedOnce(nonstop) do
         gps.go({0,0})
         action.restockAll()
+        gps.go({0,0})
+        cleanCount = cleanCount + 1
+        if cleanCount > config.inventoryCleanupCycleFreq then
+           if config.takeCareOfDrops then
+              action.dumpInventory()
+           end
+           gps.go({0,0})
+        end
     end
     gps.go({0,0})
     if docleanup then
